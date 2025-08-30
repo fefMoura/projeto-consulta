@@ -1,15 +1,9 @@
-<?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário</title>
+    <title>Cadastro de Produto</title>
 
     <style>
         body {
@@ -27,7 +21,7 @@ if (session_status() === PHP_SESSION_NONE) {
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            width: 340px;
+            width: 420px;
         }
 
         fieldset {
@@ -35,10 +29,10 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         legend {
-            font-size: 1.4em;
+            font-size: 1.5em;
             font-weight: bold;
             color: #333;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             text-align: center;
         }
 
@@ -47,41 +41,46 @@ if (session_status() === PHP_SESSION_NONE) {
             font-size: 0.95em;
             margin-bottom: 6px;
             color: #333;
+            font-weight: 500;
         }
 
-        input[type="email"],
-        input[type="password"] {
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        input[type="file"] {
             width: 100%;
             padding: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             border: 1px solid #ccc;
             border-radius: 6px;
             font-size: 1em;
             transition: 0.3s;
         }
 
-        input[type="email"]:focus,
-        input[type="password"]:focus {
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        input[type="number"]:focus {
             border-color: #2575fc;
             outline: none;
             box-shadow: 0 0 6px rgba(37,117,252,0.4);
         }
 
-        a {
-            font-size: 0.9em;
-            color: #2575fc;
-            text-decoration: none;
-            transition: 0.3s;
+        /* Personalizar input file */
+        input[type="file"] {
+            padding: 6px;
+            background: #f9f9f9;
+            cursor: pointer;
         }
 
-        a:hover {
-            text-decoration: underline;
+        input[type="file"]:hover {
+            background: #eef4ff;
+            border-color: #2575fc;
         }
 
         input[type="submit"],
         input[type="reset"] {
             width: 48%;
-            padding: 10px;
+            padding: 12px;
             font-size: 1em;
             font-weight: bold;
             border: none;
@@ -108,50 +107,36 @@ if (session_status() === PHP_SESSION_NONE) {
             background-color: #ccc;
         }
 
-        
+        /* Alinhar botões lado a lado */
         .botoes {
             display: flex;
             justify-content: space-between;
             margin-top: 15px;
         }
-
-        .links {
-            display: flex;
-            justify-content: space-between; 
-            margin-bottom: 15px;
-        }
-
-        .links a {
-            font-size: 0.9em;
-            color: #2575fc;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .links a:hover {
-            text-decoration: underline;
-        }
-
     </style>
 </head>
 <body>
-    <form action="../controller/processaLogin.php" method="post" autocomplete="on">
+    <form action="../controller/cadastrarProduto.php" method="post" autocomplete="on" enctype="multipart/form-data">
         <fieldset>
-            <legend>Login</legend>
+            <legend>Cadastro de Produto</legend>
 
-            <label for="iemail">Email:</label>
-            <input type="email" name="email" id="iemail" autocomplete="email" placeholder="Digite seu email"  required> 
+            <label for="icodigo">Código:</label>
+            <input type="text" name="codigo" id="icodigo" placeholder="Digite o código do produto" required>
 
-            <label for="isenha">Senha:</label>
-            <input type="password" name="senha" id="isenha" autocomplete="current-password" placeholder="Digite sua senha" required>
+            <label for="inome">Nome do Produto:</label>
+            <input type="text" name="produto" id="iproduto" placeholder="Digite o nome do produto" required>
 
-            <p class="links">
-                <a href="#">Esqueceu sua senha?</a>
-                <a href="#">Criar conta</a>
-            </p>
+            <label for="ivalidade">Data de Validade:</label>
+            <input type="date" name="data_validade" id="idata_validade" required>
+
+            <label for="ipreco">Preço:</label>
+            <input type="number" step="0.01" name="preco" id="ipreco" placeholder="Digite o preço do produto" required>
+
+            <label for="iimagem">Imagem do Produto:</label>
+            <input type="file" name="imagem" id="iimagem" accept="image/*" required>
 
             <div class="botoes">
-                <input type="submit" value="Entrar">
+                <input type="submit" value="Cadastrar">
                 <input type="reset" value="Limpar">
             </div>
         </fieldset>
