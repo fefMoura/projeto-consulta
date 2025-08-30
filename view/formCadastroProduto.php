@@ -124,7 +124,7 @@
             <input type="text" name="codigo" id="icodigo" placeholder="Digite o código do produto" required>
 
             <label for="inome">Nome do Produto:</label>
-            <input type="text" name="produto" id="iproduto" placeholder="Digite o nome do produto" required>
+            <input type="text" name="produto" id="iproduto" placeholder="Digite o nome do produto" required >
 
             <label for="ivalidade">Data de Validade:</label>
             <input type="date" name="data_validade" id="idata_validade" required>
