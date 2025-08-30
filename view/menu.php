@@ -23,45 +23,75 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .menu {
             background: #fff;
-            padding: 40px;
+            padding: 50px 40px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
             text-align: center;
+            width: 320px;
         }
 
         h1 {
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             color: #333;
+            font-size: 1.8em;
+            letter-spacing: 1px;
+        }
+
+        .menu form {
+            margin-bottom: 20px;
         }
 
         .menu button {
-            width: 200px;
+            width: 100%;
             padding: 15px;
-            margin: 15px 0;
+            margin: 10px 0;
             font-size: 1.1em;
             font-weight: bold;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.4s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
+        /* Gradiente nos botões */
         .cadastrar {
-            background-color: #2575fc;
+            background: linear-gradient(135deg, #2575fc, #1a5edb);
             color: #fff;
         }
 
         .consultar {
-            background-color: #6a11cb;
+            background: linear-gradient(135deg, #6a11cb, #5300a0);
             color: #fff;
         }
 
-        .cadastrar:hover {
-            background-color: #1a5edb;
+        /* Hover com movimento e sombra */
+        .menu button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
         }
 
-        .consultar:hover {
-            background-color: #5300a0;
+        /* Adicionar foco visual */
+        .menu button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37,117,252,0.5);
+        }
+
+        /* Responsividade */
+        @media screen and (max-width: 400px) {
+            .menu {
+                width: 90%;
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .menu button {
+                padding: 12px;
+                font-size: 1em;
+            }
         }
     </style>
 </head>

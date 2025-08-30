@@ -14,14 +14,21 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
 
         form {
             background: #fff;
-            padding: 30px;
+            padding: 40px 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
             width: 420px;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
         }
 
         fieldset {
@@ -32,8 +39,9 @@
             font-size: 1.5em;
             font-weight: bold;
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-align: center;
+            letter-spacing: 1px;
         }
 
         label {
@@ -49,7 +57,7 @@
         input[type="number"],
         input[type="file"] {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-bottom: 18px;
             border: 1px solid #ccc;
             border-radius: 6px;
@@ -59,15 +67,15 @@
 
         input[type="text"]:focus,
         input[type="date"]:focus,
-        input[type="number"]:focus {
+        input[type="number"]:focus,
+        input[type="file"]:focus {
             border-color: #2575fc;
             outline: none;
-            box-shadow: 0 0 6px rgba(37,117,252,0.4);
+            box-shadow: 0 0 8px rgba(37,117,252,0.4);
         }
 
-        /* Personalizar input file */
         input[type="file"] {
-            padding: 6px;
+            padding: 8px;
             background: #f9f9f9;
             cursor: pointer;
         }
@@ -80,61 +88,82 @@
         input[type="submit"],
         input[type="reset"] {
             width: 48%;
-            padding: 12px;
+            padding: 14px;
             font-size: 1em;
             font-weight: bold;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
         input[type="submit"] {
-            background-color: #2575fc;
+            background: linear-gradient(135deg, #2575fc, #1a5edb);
             color: #fff;
         }
 
+        input[type="submit"]:hover {
+            background: linear-gradient(135deg, #1a5edb, #1253a2);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+        }
+
         input[type="reset"] {
-            background-color: #e0e0e0;
+            background: #e0e0e0;
             color: #333;
         }
 
-        input[type="submit"]:hover {
-            background-color: #1a5edb;
-        }
-
         input[type="reset"]:hover {
-            background-color: #ccc;
+            background: #ccc;
+            transform: translateY(-2px);
         }
 
-        /* Alinhar botões lado a lado */
         .botoes {
             display: flex;
             justify-content: space-between;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         #voltar {
-            margin: 0px 0 15px 0;
+            margin: 0 0 20px 0;
             text-align: right;
         }
 
-        /* Botão Voltar Estilizado */
+        /* Botão Voltar Estilizado com gradiente e hover animado */
         .btn-voltar {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #2575fc;
+            background: linear-gradient(135deg, #2575fc, #1a5edb);
             color: #fff;
             font-weight: bold;
             text-decoration: none;
             border-radius: 6px;
-            transition: 0.3s;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: 0.4s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .btn-voltar:hover {
-            background-color: #1a5edb;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+            background: linear-gradient(135deg, #1a5edb, #1253a2);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+        }
+
+        /* Responsividade */
+        @media screen and (max-width: 500px) {
+            form {
+                width: 90%;
+                padding: 30px 20px;
+            }
+
+            legend {
+                font-size: 1.3em;
+            }
+
+            input[type="submit"], input[type="reset"] {
+                padding: 12px;
+                font-size: 0.95em;
+            }
         }
     </style>
 </head>
