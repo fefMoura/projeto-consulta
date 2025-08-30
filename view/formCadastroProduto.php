@@ -113,10 +113,17 @@
             justify-content: space-between;
             margin-top: 15px;
         }
+         #voltar{
+            margin: 0px;
+            padding: 0px;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
     <form action="../controller/cadastrarProduto.php" method="post" autocomplete="on" enctype="multipart/form-data">
+            <p id="voltar"><a href="menu.php">Voltar</a></p>
+
         <fieldset>
             <legend>Cadastro de Produto</legend>
 
@@ -134,6 +141,8 @@
 
             <label for="iimagem">Imagem do Produto:</label>
             <input type="file" name="imagem" id="iimagem" accept="image/*" required>
+
+             
 
             <div class="botoes">
                 <input type="submit" value="Cadastrar">

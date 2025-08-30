@@ -32,10 +32,17 @@ $produtos = $service->consultarTodos();
             max-width: 100px;
             max-height: 100px;
         }
+        #voltar{
+            margin: 0px;
+            padding: 0px;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
+    <p id="voltar"><a href="menu.php">Voltar</a></p>
     <h1>Produtos Cadastrados</h1>
+    
     <table>
         <thead>
             <tr>

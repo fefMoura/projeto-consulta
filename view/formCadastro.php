@@ -99,6 +99,11 @@
             justify-content: space-between;
             margin-top: 15px;
         }
+          .links {
+            justify-content: space-between; 
+            margin-bottom: 15px;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -120,6 +125,10 @@
 
             <label for="irepSenha">Repetir senha:</label>
             <input type="password" name="repSenha" id="irepSenha" placeholder="Repita sua senha" required>
+
+            <p class="links">
+                <a href="formLogin.php">Fazer Login</a>
+            </p>
 
             <div class="botoes">
                 <input type="submit" value="Cadastrar">

@@ -147,7 +147,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
             <p class="links">
                 <a href="#">Esqueceu sua senha?</a>
-                <a href="#">Criar conta</a>
+                <a href="formCadastro.php">Criar conta</a>
             </p>
 
             <div class="botoes">
