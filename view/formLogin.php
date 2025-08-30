@@ -108,12 +108,30 @@ if (session_status() === PHP_SESSION_NONE) {
             background-color: #ccc;
         }
 
-        /* Alinhar botões lado a lado */
+        
         .botoes {
             display: flex;
             justify-content: space-between;
             margin-top: 15px;
         }
+
+        .links {
+            display: flex;
+            justify-content: space-between; 
+            margin-bottom: 15px;
+        }
+
+        .links a {
+            font-size: 0.9em;
+            color: #2575fc;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
     </style>
 </head>
 <body>
@@ -127,8 +145,9 @@ if (session_status() === PHP_SESSION_NONE) {
             <label for="isenha">Senha:</label>
             <input type="password" name="senha" id="isenha" autocomplete="current-password" placeholder="Digite sua senha" required>
 
-            <p>
+            <p class="links">
                 <a href="#">Esqueceu sua senha?</a>
+                <a href="#">Criar conta</a>
             </p>
 
             <div class="botoes">
