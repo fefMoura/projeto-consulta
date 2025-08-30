@@ -13,22 +13,31 @@
 
         <p>
             <label for="inome">Nome:</label>
-            <input type="text" name="" id="">
+            <input type="text" name="nome" id="inome" autocomplete="name" >
         </p>
 
         <p>
             <label for="isobrenome">Sobrenome:</label>
-            <input type="text" name="sobrenome" id="isobrenome">
+            <input type="text" name="sobrenome" id="isobrenome" autocomplete="family-name">
         </p>
 
         <p>
             <label for="iiemail">Email:</label>
-            <input type="email" name="email" id="iemail">
+            <input type="email" name="email" id="iemail" autocomplete="email">
         </p>
 
         <p>
             <label for="iisenha">Senha:</label>
-            <input type="password" name="senha" id="isenha">
+            <input type="password" name="senha" id="isenha" autocomplete="new-password">
+        </p>
+
+        <p>
+            <label for="iisenha">Repetir senha:</label>
+            <input type="password" name="repSenha" id="irepSenha">
+        </p>
+        <p>
+            <input type="submit" value="Cadastrar">
+            <input type="reset" value="Limpar">
         </p>
 
 
