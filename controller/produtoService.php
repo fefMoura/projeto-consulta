@@ -1,18 +1,16 @@
 <?php
 
 require_once "../model/modelProduto.php";
-class produtoService{
-  
-    private $conn;
+class ProdutoService {
+    private $mysqli;
 
-  public function __construct($conn) {
-        $this->conn = $conn;
+    public function __construct($mysqli) {
+        $this->mysqli = $mysqli;
     }
 
-
-public static function consultarTodos($conn) {
+    public function consultarTodos() {
         $sql = "SELECT * FROM produtos";
-        $result = $conn->query($sql);
+        $result = $this->mysqli->query($sql);
         $produtos = [];
         while ($row = $result->fetch_assoc()) {
             $produtos[] = new Produto(
@@ -20,15 +18,15 @@ public static function consultarTodos($conn) {
                 $row['produto'],
                 $row['data_validade'],
                 $row['preco'],
-                $row['foto']
+                $row['imagem']
             );
         }
         return $produtos;
     }
 
-    public static function consultarPorCodigo($conn, $codigo) {
+    public function consultarPorCodigo($codigo) {
         $sql = "SELECT * FROM produtos WHERE codigo = ?";
-        $stmt = $conn->prepare($sql);
+        $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("i", $codigo);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -38,49 +36,61 @@ public static function consultarTodos($conn) {
                 $row['produto'],
                 $row['data_validade'],
                 $row['preco'],
-                $row['foto']
+                $row['imagem']
             );
         }
         return null;
     }
 
-    public function adicionar($conn) {
-    $sql = "INSERT INTO produtos (produto, data_validade, preco, foto) VALUES (?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
+public function adicionar(Produto $p) {
+    $sql = "INSERT INTO produtos (codigo, produto, data_validade, preco, imagem) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $this->mysqli->prepare($sql);
+    if (!$stmt) die("Erro no prepare: " . $this->mysqli->error);
 
-    // Vincula parâmetros com um placeholder para o BLOB
-    $null = NULL; // placeholder para a foto
-    $stmt->bind_param("ssds", $this->produto, $this->data_validade, $this->preco, $null);
+    // Placeholder para BLOB
+    $null = NULL;
 
-    // Envia os dados do BLOB
-    $stmt->send_long_data(3, $this->foto); // índice começa em 0
+    // Bind dos parâmetros: 
+    // 0 => codigo (i)
+    // 1 => produto (s)
+    // 2 => data_validade (s)
+    // 3 => preco (d)
+    // 4 => imagem (b = BLOB)
+    $stmt->bind_param("issdb", $p->codigo, $p->produto, $p->data_validade, $p->preco, $null);
 
-    return $stmt->execute();
+    // Envia o BLOB
+    $stmt->send_long_data(4, $p->imagem); // índice 4 = 5º parâmetro
+
+    if (!$stmt->execute()) die("Erro no execute: " . $stmt->error);
+    return true;
 }
 
 
-  public function atualizar($conn) {
-    $sql = "UPDATE produtos SET produto = ?, data_validade = ?, preco = ?, foto = ? WHERE codigo = ?";
-    $stmt = $conn->prepare($sql);
 
-    // Vincula parâmetros com placeholder para BLOB
-    $null = NULL; // placeholder para foto
-    $stmt->bind_param("ssdsi", $this->produto, $this->data_validade, $this->preco, $null, $this->codigo);
+public function atualizar(Produto $p) {
+    $sql = "UPDATE produtos SET produto = ?, data_validade = ?, preco = ?, imagem = ? WHERE codigo = ?";
+    $stmt = $this->mysqli->prepare($sql);
+    if (!$stmt) die("Erro no prepare: " . $this->mysqli->error);
 
-    // Envia os dados do BLOB
-    $stmt->send_long_data(3, $this->foto); // índice começa em 0, então 3 = 4º parâmetro
+    $null = NULL;
 
-    return $stmt->execute();
+    // Bind: produto (s), data_validade (s), preco (d), imagem (b), codigo (i)
+    $stmt->bind_param("ssdbi", $p->produto, $p->data_validade, $p->preco, $null, $p->codigo);
+
+    // Envia a imagem
+    $stmt->send_long_data(3, $p->imagem); // índice 3 = 4º parâmetro (imagem)
+
+    if (!$stmt->execute()) die("Erro no execute: " . $stmt->error);
+    return true;
 }
 
-
-    public static function excluir($conn, $codigo) {
+    public function excluir($codigo) {
         $sql = "DELETE FROM produtos WHERE codigo = ?";
-        $stmt = $conn->prepare($sql);
+        $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("i", $codigo);
         return $stmt->execute();
     }
-
 }
+
 
 ?>
