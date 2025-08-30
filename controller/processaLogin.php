@@ -1,6 +1,10 @@
 <?php
 include("conexao.php");
 include "conexao.php";
+include("../model/model.php");
+
+
+
 
 // Inicia a sessão no topo
 if (session_status() === PHP_SESSION_NONE) {
@@ -25,15 +29,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["email"])) {
         echo "<script>alert('Este email não pertence a nenhum usuário.'); history.back();</script>";
         exit();
     } 
+     $user = new User(
+        $dado['idusuario'],
+        '', // nao uso nome/sobrenome
+        '',
+        $email,
+        $dado['senha'] // hash da senha
+    );
 
-    if (!password_verify($_POST['senha'], $dado['senha'])) {
-        echo "<script>alert('Senha incorreta.'); history.back();</script>";
-        exit();
-    }
+    if (!password_verify($_POST['senha'], $user->senha)) {
+    echo "<script>alert('Senha incorreta.'); history.back();</script>";
+    exit();
+}
+
 
     // Login bem-sucedido
-    $_SESSION['usuario'] = $dado['idusuario'];
-    $_SESSION['email'] = $email;
+    $_SESSION['usuario'] = $user->id;
+    $_SESSION['email'] = $user->email;
+
     echo "<script>alert('Login efetuado com sucesso!'); window.location.href='sucesso.php';</script>";
     exit();
 }
