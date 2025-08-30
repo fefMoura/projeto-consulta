@@ -6,7 +6,7 @@
     <title>Formulario</title>
 </head>
 <body>
-    <form action="cadastro.php" method="post" autocomplete="on">
+    <form action="../controller/processaCadastro.php" method="post" autocomplete="on">
 
     <fieldset>
         <legend>Cadastro</legend>
@@ -39,7 +39,7 @@
             <input type="submit" value="Cadastrar">
             <input type="reset" value="Limpar">
         </p>
-
+      
 
     </fieldset>
 
