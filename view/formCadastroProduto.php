@@ -113,16 +113,34 @@
             justify-content: space-between;
             margin-top: 15px;
         }
-         #voltar{
-            margin: 0px;
-            padding: 0px;
+
+        #voltar {
+            margin: 0px 0 15px 0;
             text-align: right;
+        }
+
+        /* Botão Voltar Estilizado */
+        .btn-voltar {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2575fc;
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-voltar:hover {
+            background-color: #1a5edb;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
         }
     </style>
 </head>
 <body>
     <form action="../controller/cadastrarProduto.php" method="post" autocomplete="on" enctype="multipart/form-data">
-            <p id="voltar"><a href="menu.php">Voltar</a></p>
+        <p id="voltar"><a href="menu.php" class="btn-voltar">Voltar</a></p>
 
         <fieldset>
             <legend>Cadastro de Produto</legend>
@@ -131,7 +149,7 @@
             <input type="text" name="codigo" id="icodigo" placeholder="Digite o código do produto" required>
 
             <label for="inome">Nome do Produto:</label>
-            <input type="text" name="produto" id="iproduto" placeholder="Digite o nome do produto" required >
+            <input type="text" name="produto" id="iproduto" placeholder="Digite o nome do produto" required>
 
             <label for="ivalidade">Data de Validade:</label>
             <input type="date" name="data_validade" id="idata_validade" required>
@@ -141,8 +159,6 @@
 
             <label for="iimagem">Imagem do Produto:</label>
             <input type="file" name="imagem" id="iimagem" accept="image/*" required>
-
-             
 
             <div class="botoes">
                 <input type="submit" value="Cadastrar">
