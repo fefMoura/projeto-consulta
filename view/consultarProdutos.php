@@ -155,21 +155,23 @@ $produtos = $service->consultarTodos();
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($produtos as $p): ?>
+               <?php foreach($produtos as $p): ?>
                 <tr>
-                    <td><?= htmlspecialchars($p->codigo) ?></td>
-                    <td><?= htmlspecialchars($p->produto) ?></td>
-                    <td><?= htmlspecialchars($p->data_validade) ?></td>
-                    <td>R$ <?= number_format($p->preco, 2, ',', '.') ?></td>
-                    <td>
-                        <?php if ($p->imagem): ?>
-                            <img src="data:image/jpeg;base64,<?= base64_encode($p->imagem) ?>" alt="<?= htmlspecialchars($p->produto) ?>">
-                        <?php else: ?>
-                            Sem imagem
-                        <?php endif; ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
+    <td><?= htmlspecialchars($p->getCodigo()) ?></td>
+    <td><?= htmlspecialchars($p->getProduto()) ?></td>
+    <td><?= htmlspecialchars($p->getDataValidade()) ?></td>
+    <td>R$ <?= number_format($p->getPreco(), 2, ',', '.') ?></td>
+    <td>
+        <?php if ($p->getImagem()): ?>
+            <img src="data:image/jpeg;base64,<?= base64_encode($p->getImagem()) ?>" 
+                 alt="<?= htmlspecialchars($p->getProduto()) ?>" width="100">
+        <?php else: ?>
+            Sem imagem
+        <?php endif; ?>
+    </td>
+</tr>
+<?php endforeach; ?>
+
             </tbody>
         </table>
     </div>

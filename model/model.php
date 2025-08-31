@@ -27,4 +27,5 @@ class User
             'senha'=> $this->senha
         ];
     }
+
 }

@@ -18,7 +18,8 @@ class ProdutoService {
                 $row['produto'],
                 $row['data_validade'],
                 $row['preco'],
-                $row['imagem']
+                $row['imagem'],
+                $row['idusuario']
             );
         }
         return $produtos;
@@ -36,61 +37,80 @@ class ProdutoService {
                 $row['produto'],
                 $row['data_validade'],
                 $row['preco'],
-                $row['imagem']
+                $row['imagem'],
+                $row['idusuario']
             );
         }
         return null;
     }
 
 public function adicionar(Produto $p) {
-    $sql = "INSERT INTO produtos (codigo, produto, data_validade, preco, imagem) VALUES (?, ?, ?, ?, ?)";
-    $stmt = $this->mysqli->prepare($sql);
+    $stmt = $this->mysqli->prepare(
+        "INSERT INTO produtos (codigo, produto, data_validade, preco, imagem, idusuario) 
+         VALUES (?, ?, ?, ?, ?, ?)"
+    );
     if (!$stmt) die("Erro no prepare: " . $this->mysqli->error);
 
-    // Placeholder para BLOB
-    $null = NULL;
+    // Valores em variáveis
+    $codigo       = $p->getCodigo();
+    $produto      = $p->getProduto();
+    $dataValidade = $p->getDataValidade();
+    $preco        = $p->getPreco();
+    $idusuario    = $p->getIdUsuario();
+    $imagem       = $p->getImagem();
+    $null         = NULL;
 
-    // Bind dos parâmetros: 
-    // 0 => codigo (i)
-    // 1 => produto (s)
-    // 2 => data_validade (s)
-    // 3 => preco (d)
-    // 4 => imagem (b = BLOB)
-    $stmt->bind_param("issdb", $p->codigo, $p->produto, $p->data_validade, $p->preco, $null);
+    // Bind (imagem como BLOB é placeholder NULL)
+    $stmt->bind_param("sssdbi", $codigo, $produto, $dataValidade, $preco, $null, $idusuario);
 
-    // Envia o BLOB
-    $stmt->send_long_data(4, $p->imagem); // índice 4 = 5º parâmetro
+    // Envia o conteúdo do BLOB
+    $stmt->send_long_data(4, $imagem); // 4º índice = 5º parâmetro (imagem)
 
-    if (!$stmt->execute()) die("Erro no execute: " . $stmt->error);
+    // Executa
+    if (!$stmt->execute()) {
+        die("Erro no execute: " . $stmt->error);
+    }
+
     return true;
 }
+
 
 
 
 public function atualizar(Produto $p) {
-    $sql = "UPDATE produtos SET produto = ?, data_validade = ?, preco = ?, imagem = ? WHERE codigo = ?";
+    $sql = "UPDATE produtos 
+            SET produto = ?, data_validade = ?, preco = ?, imagem = ? 
+            WHERE codigo = ?";
     $stmt = $this->mysqli->prepare($sql);
     if (!$stmt) die("Erro no prepare: " . $this->mysqli->error);
 
     $null = NULL;
 
-    // Bind: produto (s), data_validade (s), preco (d), imagem (b), codigo (i)
-    $stmt->bind_param("ssdbi", $p->produto, $p->data_validade, $p->preco, $null, $p->codigo);
+    // produto (s), data_validade (s), preco (d), imagem (b), codigo (s)
+    $stmt->bind_param(
+        "ssd bs",
+        $p->getProduto(),
+        $p->getDataValidade(),
+        $p->getPreco(),
+        $null,
+        $p->getCodigo()
+    );
 
-    // Envia a imagem
-    $stmt->send_long_data(3, $p->imagem); // índice 3 = 4º parâmetro (imagem)
+    // Envia a imagem (4º parâmetro → índice 3)
+    $stmt->send_long_data(3, $p->getImagem());
 
     if (!$stmt->execute()) die("Erro no execute: " . $stmt->error);
     return true;
 }
 
-    public function excluir($codigo) {
-        $sql = "DELETE FROM produtos WHERE codigo = ?";
-        $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param("i", $codigo);
-        return $stmt->execute();
-    }
+
+ public function excluir($codigo) {
+    $sql = "DELETE FROM produtos WHERE codigo = ?";
+    $stmt = $this->mysqli->prepare($sql);
+    $stmt->bind_param("i", $codigo);
+    return $stmt->execute();
 }
 
+}
 
 ?>

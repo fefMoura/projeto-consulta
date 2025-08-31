@@ -37,17 +37,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["email"])) {
         $dado['senha'] // hash da senha
     );
 
-    if (!password_verify($_POST['senha'], $user->senha)) {
+if (!password_verify($_POST['senha'], $dado['senha'])) {
     echo "<script>alert('Senha incorreta.'); history.back();</script>";
     exit();
 }
 
 
     // Login bem-sucedido
-    $_SESSION['usuario'] = $user->id;
+    $_SESSION['idusuario'] = $user->id;
     $_SESSION['email'] = $user->email;
+    $_SESSION['nome'] = $user->nome;
+    $_SESSION['usuario_obj'] = $user; // objeto User
 
-    echo "<script>alert('Login efetuado com sucesso!'); window.location.href='sucesso.php';</script>";
+
+    echo "<script>alert('Login efetuado com sucesso!'); window.location.href='../view/menu.php';</script>";
     exit();
 }
 ?>

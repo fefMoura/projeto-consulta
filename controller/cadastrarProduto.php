@@ -3,6 +3,15 @@ include("../model/modelProduto.php");
 include("produtoService.php");
 include("conexao.php"); // $mysqli do MySQLi
 
+session_start(); // garante que a sessão está ativa
+
+// Pega o id do usuário logado
+$idusuario = $_SESSION['idusuario'] ?? null;
+if (!$idusuario) {
+    echo "<script>alert('Você precisa estar logado para cadastrar produtos'); window.location.href='../view/formlogin.php';</script>";
+    exit();
+}
+
 // Recebe dados do formulário
 $codigo = $_POST["codigo"];
 $produto = $_POST['produto'];
@@ -20,12 +29,12 @@ if ($produtoExistente) {
     exit();
 }
 
-// Cria objeto Produto
-$p = new Produto($codigo, $produto, $data_validade, $preco, $imagem);
+// Cria objeto Produto já com idusuario
+$p = new Produto($codigo, $produto, $data_validade, $preco, $imagem, $idusuario);
 
 // Adiciona no banco
 if ($service->adicionar($p)) {
-    echo "<script>alert('Produto cadastrado com sucesso!'); window.location.href='../view/formProduto.php';</script>";
+    echo "<script>alert('Produto cadastrado com sucesso!'); window.location.href='../view/formCadastroProduto.php';</script>";
 } else {
     echo "<script>alert('Erro ao cadastrar o produto'); history.back();</script>";
 }

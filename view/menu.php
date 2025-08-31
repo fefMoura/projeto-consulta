@@ -93,12 +93,19 @@ if (session_status() === PHP_SESSION_NONE) {
                 font-size: 1em;
             }
         }
+        #logout{
+            margin: 0px;
+            padding: 0px;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
     <div class="menu">
+        <p id="logout"><a href="../controller/logout.php">Logout</a></p>
         <h1>Menu de Produtos</h1>
         <form action="formCadastroProduto.php" method="get">
+            
             <button type="submit" class="cadastrar">Cadastrar Produto</button>
         </form>
         <form action="consultarProdutos.php" method="get">
