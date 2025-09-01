@@ -20,6 +20,6 @@ MySQL (banco de dados)
 
 HTML / CSS (estrutura e estilo das páginas)
 
-👨‍💻 Autor
+👨‍💻 Autores
 
 Projeto desenvolvido por Felipe Ferreira de Moura e Thiago de Oliveira Motta.
